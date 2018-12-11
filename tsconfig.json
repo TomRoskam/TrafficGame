@@ -8,6 +8,9 @@
         "out": "assets/js/app.js",
         "noEmitOnError": true
     },
+    "files": [
+        "node_modules/phaser-ce/typescript/phaser.d.ts"
+    ],
     "include": [
         "src/**/*"
     ],
