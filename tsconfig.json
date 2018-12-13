@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es6",
         "sourceMap": true,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "noImplicitReturns": true,
         "removeComments": true,
         "out": "assets/js/app.js",

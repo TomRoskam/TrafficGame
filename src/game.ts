@@ -5,24 +5,71 @@ window.onload = function () {
     //  Note that this html file is set to pull down Phaser 2.5.0 from the JS Delivr CDN.
     //  Although it will work fine with this tutorial, it's almost certainly not the most current version.
     //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
+    console.log(window.innerWidth);
+    console.log(window.innerHeight);
+    console.log(scale);
 
-    var game = new Phaser.Game(window.innerWidth, (24960*0.127)-550, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
+    var scale = 0.0000737 * innerWidth;
+    var speed = 10;
+    var carGreen1;
 
-    function preload() {
-    
+    var game = new Phaser.Game(window.innerWidth, (24960 * scale) - 5500 * scale, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+
+    function preload() {    
         game.load.image('map', './assets/map/map.jpg');
-        
-    
+        game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
     }
-    
+
     function create() {
-    
-        //  This simply creates an Image using the picture we loaded above and positions it at 100 x 100
-    
-        //  The difference between an Image and a Sprite is that you cannot animate or add a physics body to an Image
         console.log("test");
-        var map = game.add.image(0, -550, 'map');map.scale.setTo(0.127,0.127);
-        
-    
+        var map = game.add.sprite(0, -5500 * scale, 'map'); map.scale.setTo(scale, scale);
+        carGreen1 = game.add.sprite(4500 * scale, (2340 * scale), 'carGreen'); carGreen1.scale.setTo(scale * 10, scale * 10);
+        carGreen1.anchor.setTo(0.5, 0.5);
+
+        game.physics.startSystem(Phaser.Physics.NINJA);
+        game.physics.p2.enable(carGreen1);
+        //game.physics.enable(carGreen1);
+        //game.camera.atLimit
+        game.camera.follow(carGreen1);
+
+      game.input.keyboard.addKeyCapture([
+            Phaser.Keyboard.LEFT,
+            Phaser.Keyboard.RIGHT,
+            Phaser.Keyboard.UP,
+            Phaser.Keyboard.DOWN,
+        ]);
+
+
+    }
+
+    function update() {
+        carGreen1.body.setZeroVelocity();
+
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            carGreen1.x -= speed;
+            game.camera.x -= 4;
+
+            console.log(carGreen1.x);
+            console.log("<--");
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            carGreen1.x += speed;
+            game.camera.x += 4;
+        }
+
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            carGreen1.y += speed;
+            game.camera.y += 4;
+        }
+
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            carGreen1.y -= speed;
+            game.camera.y -= 4;
+        }
+    }
+
+    function render() {
+        game.debug.cameraInfo(game.camera, 32, 32);
+
     }
 }
