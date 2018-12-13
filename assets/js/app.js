@@ -1,56 +1,56 @@
 console.log("I LIVE");
-window.onload = function () {
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
-    console.log(scale);
-    var scale = 0.0000737 * innerWidth;
-    var speed = 10;
-    var carGreen1;
-    var game = new Phaser.Game(window.innerWidth, (24960 * scale) - 5500 * scale, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
-    function preload() {
-        game.load.image('map', './assets/map/map.jpg');
-        game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
+class Game {
+    constructor() {
+        this.scale = 0.0000737 * innerWidth;
+        this.speed = 10;
+        this.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', { preload: this.preload, create: this.create, update: this.update });
     }
-    function create() {
+    preload() {
+        this.game.load.image('map', './assets/map/map4mp.jpg');
+        this.game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
+    }
+    create() {
         console.log("test");
-        var map = game.add.sprite(0, -5500 * scale, 'map');
-        map.scale.setTo(scale, scale);
-        carGreen1 = game.add.sprite(4500 * scale, (2340 * scale), 'carGreen');
-        carGreen1.scale.setTo(scale * 10, scale * 10);
-        carGreen1.anchor.setTo(0.5, 0.5);
-        game.physics.startSystem(Phaser.Physics.NINJA);
-        game.physics.p2.enable(carGreen1);
-        game.camera.follow(carGreen1);
-        game.input.keyboard.addKeyCapture([
+        this.map = this.game.add.image(0, 0, 'map');
+        this.map.scale.setTo(0.5, 0.5);
+        this.carGreen1 = this.game.add.sprite(4500 * this.scale, (2340 * this.scale), 'carGreen');
+        this.carGreen1.scale.setTo(this.scale * 10, this.scale * 10);
+        this.carGreen1.anchor.setTo(0.5, 0.5);
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
+        this.game.physics.p2.enable(this.carGreen1);
+        this.game.camera.follow(this.carGreen1);
+        this.game.input.keyboard.addKeyCapture([
             Phaser.Keyboard.LEFT,
             Phaser.Keyboard.RIGHT,
             Phaser.Keyboard.UP,
             Phaser.Keyboard.DOWN,
         ]);
     }
-    function update() {
-        carGreen1.body.setZeroVelocity();
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            carGreen1.x -= speed;
-            game.camera.x -= 4;
-            console.log(carGreen1.x);
+    update() {
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+            this.carGreen1.x -= this.speed;
+            this.game.camera.x -= 4;
+            console.log(this.carGreen1.x);
             console.log("<--");
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            carGreen1.x += speed;
-            game.camera.x += 4;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+            this.carGreen1.x += this.speed;
+            this.game.camera.x += 4;
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            carGreen1.y += speed;
-            game.camera.y += 4;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            this.carGreen1.y += this.speed;
+            this.game.camera.y += 4;
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            carGreen1.y -= speed;
-            game.camera.y -= 4;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            this.carGreen1.y -= this.speed;
+            this.game.camera.y -= 4;
         }
     }
-    function render() {
-        game.debug.cameraInfo(game.camera, 32, 32);
+    render() {
+        this.game.debug.cameraInfo(this.game.camera, 32, 32);
     }
+}
+window.onload = () => {
+    var game = new Game();
 };
 //# sourceMappingURL=app.js.map
