@@ -11,7 +11,7 @@ class PlayerCarController extends EntityControllerBase {
                 (<Car>this.entity).orientation = 0;
 
         if (this.cursors.left.justDown)
-            if (((<Car>this.entity).orientation += 1) <= -1)
-                (<Car>this.entity).orientation = 0;
+            if (((<Car>this.entity).orientation -= 1) <= -1)
+                (<Car>this.entity).orientation = 3;
     }
 }
