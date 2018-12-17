@@ -35,7 +35,6 @@ class Game {
 
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.p2.enable(this.carGreen1);
-        this.game.physics.enable(this.carGreen1);
         this.game.camera.atLimit
         this.game.camera.follow(this.carGreen1);
 
@@ -49,26 +48,24 @@ class Game {
    
     update() {
         //this.carGreen1.body.setZeroVelocity();
-
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.carGreen1.x -= this.speed;
+        this.carGreen1.body.velocity.x = 0;
+        this.carGreen1.body.velocity.y = 0;
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.A)) {
+            this.carGreen1.body.velocity.x = -this.speed;
             this.game.camera.x -= 4;
-
-            console.log(this.carGreen1.x);
-            console.log("<--");
         }
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.carGreen1.x += this.speed;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+            this.carGreen1.body.velocity.x = this.speed;
             this.game.camera.x += 4;
         }
 
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.carGreen1.y += this.speed;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
+            this.carGreen1.body.velocity.y = this.speed;
             this.game.camera.y += 4;
         }
 
-        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.carGreen1.y -= this.speed;
+        else if (this.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            this.carGreen1.body.velocity.y = -this.speed;
             this.game.camera.y -= 4;
         }
     }
