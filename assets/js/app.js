@@ -13,40 +13,33 @@ window.onload = function () {
     }
     function create() {
         console.log("test");
-        var map = game.add.sprite(0, -5500 * scale, 'map');
+        var map = game.add.image(0, -5500 * scale, 'map');
         map.scale.setTo(scale, scale);
         carGreen1 = game.add.sprite(4500 * scale, (2340 * scale), 'carGreen');
         carGreen1.scale.setTo(scale * 10, scale * 10);
         carGreen1.anchor.setTo(0.5, 0.5);
-        game.physics.startSystem(Phaser.Physics.NINJA);
-        game.physics.p2.enable(carGreen1);
-        game.camera.follow(carGreen1);
         game.input.keyboard.addKeyCapture([
-            Phaser.Keyboard.LEFT,
-            Phaser.Keyboard.RIGHT,
-            Phaser.Keyboard.UP,
-            Phaser.Keyboard.DOWN,
+            Phaser.Keyboard.A,
+            Phaser.Keyboard.D,
+            Phaser.Keyboard.W,
+            Phaser.Keyboard.S,
         ]);
     }
     function update() {
         carGreen1.body.setZeroVelocity();
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            carGreen1.x -= speed;
-            game.camera.x -= 4;
+        if (game.input.keyboard.isDown(Phaser.Keyboard.A)) {
+            carGreen1.body.velocity.x -= 10;
             console.log(carGreen1.x);
             console.log("<--");
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            carGreen1.x += speed;
-            game.camera.x += 4;
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+            carGreen1.body.velocity.x += 10;
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            carGreen1.y += speed;
-            game.camera.y += 4;
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.S)) {
+            carGreen1.y += 10;
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            carGreen1.y -= speed;
-            game.camera.y -= 4;
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            carGreen1.y -= 10;
         }
     }
     function render() {
