@@ -1,29 +1,32 @@
 console.log("I LIVE");
 class Game {
     constructor() {
-        this.scale = 0.0000737 * innerWidth;
-        this.speed = 10;
         this.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', { preload: this.preload, create: this.create, update: this.update });
     }
     preload() {
-        this.game.load.image('map', './assets/map/map4mp.jpg');
+        this.game.load.image('map', './assets/map/map4MP.jpg');
         this.game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
     }
     create() {
+        this.scale = 0.0000737 * innerWidth;
+        this.speed = 10;
         console.log("test");
         this.map = this.game.add.image(0, 0, 'map');
-        this.map.scale.setTo(0.5, 0.5);
+        this.map.scale.setTo(this.scale, this.scale);
         this.carGreen1 = this.game.add.sprite(4500 * this.scale, (2340 * this.scale), 'carGreen');
         this.carGreen1.scale.setTo(this.scale * 10, this.scale * 10);
         this.carGreen1.anchor.setTo(0.5, 0.5);
+        console.log(this.speed);
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.p2.enable(this.carGreen1);
+        this.game.physics.enable(this.carGreen1);
+        this.game.camera.atLimit;
         this.game.camera.follow(this.carGreen1);
         this.game.input.keyboard.addKeyCapture([
-            Phaser.Keyboard.LEFT,
-            Phaser.Keyboard.RIGHT,
-            Phaser.Keyboard.UP,
-            Phaser.Keyboard.DOWN,
+            Phaser.Keyboard.A,
+            Phaser.Keyboard.D,
+            Phaser.Keyboard.W,
+            Phaser.Keyboard.S,
         ]);
     }
     update() {
