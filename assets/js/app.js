@@ -1,66 +1,121 @@
-class Game {
+class Game extends Phaser.Game {
     constructor(width, height) {
-        this.preload = () => {
-            this.game.load.spritesheet('map', './assets/images/CityPack/Spritesheet/map.png', 16, 16, -1, 0, 1);
-            this.game.load.physics("physics", "./assets/js/physics.json");
-        };
-        this.create = () => {
-            this.cursors = this.game.input.keyboard.createCursorKeys();
-            this.game.physics.startSystem(Phaser.Physics.P2JS);
-            this.car = this.createCar();
-        };
-        this.update = () => {
-            if (this.cursors.left.isDown) {
-            }
-            else if (this.cursors.right.isDown) {
-            }
-            if (this.cursors.up.isDown) {
-                this.car.getParentSprite().body.thrustLeft(20);
-            }
-            else if (this.cursors.down.isDown) {
-                this.car.getParentSprite().body.thrustRight(20);
-            }
-        };
-        this.render = () => {
-            this.game.debug.text(this.car.getParentSprite().body.rotation, 30, 30);
-        };
-        this.game = new Phaser.Game(width, height, Phaser.AUTO, '', {
-            preload: this.preload,
-            create: this.create,
-            update: this.update,
-            render: this.render
-        }, false);
-    }
-    createCar() {
-        return new Car(this.game, this.game.width / 2, this.game.height / 2);
+        super(width, height, Phaser.AUTO, false, null, false, true, null);
+        this.state.add("boot", Boot, true);
     }
 }
 window.onload = function () {
     const game = new Game(window.innerWidth, window.innerHeight);
 };
-class EntityBase {
+class EntityBase extends Phaser.Sprite {
     constructor(game, x, y) {
-        this.game = game;
-        this.parent = game.add.sprite(x, y);
-        this.game.physics.p2.enable(this.parent, false, false);
+        super(game, x, y);
+        this.game.physics.p2.enable(this, true, false);
+        this.game.add.existing(this);
     }
-    getParentSprite() {
-        return this.parent;
+}
+class EntityControllerBase {
+    constructor(ent) {
+        this.entity = ent;
+        this.game = ent.game;
+    }
+}
+class PlayerCarController extends EntityControllerBase {
+    constructor(ent) {
+        super(ent);
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+    }
+    update() {
+        if (this.cursors.right.justDown)
+            if ((this.entity.orientation += 1) >= 4)
+                this.entity.orientation = 0;
+        if (this.cursors.left.justDown)
+            if ((this.entity.orientation += 1) <= -1)
+                this.entity.orientation = 0;
     }
 }
 class Car extends EntityBase {
     constructor(game, x, y) {
         super(game, x, y);
+        this.orientation = 0;
+        this.updateSprites();
+        this.controller = new PlayerCarController(this);
+        this.body.clearShapes();
+        this.body.loadPolygon("physics", "New Bitmap Image (2)");
+    }
+    update() {
+        super.update();
+        this.controller.update();
+        this.body.rotation = 0;
         this.updateSprites();
     }
     updateSprites() {
-        this.parent.body.clearShapes();
-        this.parent.body.loadPolygon("physics", "New Bitmap Image (2)");
-        for (let ii = 0; ii < 2; ii++) {
-            for (let jj = 0; jj < 3; jj++) {
-                this.parent.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (18 - ii) - 4 - jj));
+        const orientata = this.orientation;
+        if (orientata !== this.lastOrientata) {
+            this.removeChildren();
+            if (orientata === 0 || orientata === 4) {
+                for (let ii = 0; ii < 2; ii++) {
+                    for (let jj = 0; jj < 3; jj++) {
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (18 - ii) - 4 - jj));
+                    }
+                }
             }
+            else if (orientata === 1) {
+                for (let ii = 0; ii < 2; ii++) {
+                    for (let jj = 0; jj < 2; jj++) {
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (20 - ii) - 5 - jj));
+                    }
+                }
+            }
+            else if (orientata === 2) {
+                for (let ii = 0; ii < 2; ii++) {
+                    for (let jj = 0; jj < 3; jj++) {
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (18 - ii) - 1 - jj));
+                    }
+                }
+            }
+            else if (orientata === 3) {
+                for (let ii = 0; ii < 2; ii++) {
+                    for (let jj = 0; jj < 2; jj++) {
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (20 - ii) - 3 - jj));
+                    }
+                }
+            }
+            this.lastOrientata = orientata;
         }
+    }
+}
+class Boot extends Phaser.State {
+    preload() {
+        this.game.load.spritesheet('map', './assets/images/CityPack/Spritesheet/map.png', 16, 16, -1, 0, 1);
+        this.game.load.physics("physics", "./assets/js/physics.json");
+    }
+    create() {
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
+        const car = new Car(this.game, 500, 500);
+    }
+    update() {
+    }
+    render() {
+    }
+}
+class Level extends Phaser.State {
+    preload() {
+        this.game.load.spritesheet('map', './assets/images/CityPack/Spritesheet/map.png', 16, 16, -1, 0, 1);
+        this.game.load.physics("physics", "./assets/js/physics.json");
+    }
+    create() {
+        this.game.physics.startSystem(Phaser.Physics.P2JS);
+        this.car = this.createCar();
+    }
+    update() {
+    }
+    render() {
+        this.game.debug.text("Rot: " + this.car.body.rotation, 30, 30);
+        this.game.debug.text("X: " + this.car.position.x + "; Y: " + this.car.position.y, 30, 60);
+    }
+    createCar() {
+        return new Car(this.game, this.game.width / 2, this.game.height / 2);
     }
 }
 //# sourceMappingURL=app.js.map
