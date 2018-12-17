@@ -1,72 +1,24 @@
-console.log("I LIVE");
+class Game extends Phaser.Game {
+
+    constructor(width: number, height: number) {
+        super(
+            width,
+            height,
+            Phaser.AUTO,
+            false,
+            null,
+            false,
+            true,
+            null
+        );
+
+        this.state.add("boot", Level, true);
+    }
+
+}
+
+
 
 window.onload = function () {
-
-    //  Note that this html file is set to pull down Phaser 2.5.0 from the JS Delivr CDN.
-    //  Although it will work fine with this tutorial, it's almost certainly not the most current version.
-    //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
-    console.log(scale);
-
-    var scale = 0.0000737 * innerWidth;
-    var speed = 10;
-    var carGreen1;
-
-    var game = new Phaser.Game(window.innerWidth, (24960 * scale) - 5500 * scale, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
-
-    function preload() {    
-        game.load.image('map', './assets/map/map.jpg');
-        game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
-    }
-
-    function create() {
-        console.log("test");
-        var map = game.add.image(0, -5500 * scale, 'map'); map.scale.setTo(scale, scale);
-        carGreen1 = game.add.sprite(4500 * scale, (2340 * scale), 'carGreen'); carGreen1.scale.setTo(scale * 10, scale * 10);
-        carGreen1.anchor.setTo(0.5, 0.5);
-
-
-
-      game.input.keyboard.addKeyCapture([
-            Phaser.Keyboard.A,
-            Phaser.Keyboard.D,
-            Phaser.Keyboard.W,
-            Phaser.Keyboard.S,
-        ]);
-
-        //   game.physics.startSystem(Phaser.Physics.NINJA);
-        //   game.physics.p2.enable(carGreen1);
-        //   game.camera.follow(carGreen1);
-
-
-    }
-
-    function update() {
-
-      carGreen1.body.setZeroVelocity();
-
-        if (game.input.keyboard.isDown(Phaser.Keyboard.A)) {
-            carGreen1.body.velocity.x -= 10;
-
-            console.log(carGreen1.x);
-            console.log("<--");
-        }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.D)) {
-            carGreen1.body.velocity.x += 10;
-        }
-
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.S)) {
-            carGreen1.y += 10;
-        }
-
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.W)) {
-            carGreen1.y -= 10;
-        }
-    }
-
-    function render() {
-        game.debug.cameraInfo(game.camera, 32, 32);
-
-    }
+    const game = new Game(window.innerWidth, window.innerHeight);
 }
