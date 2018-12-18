@@ -19,7 +19,7 @@ class Car extends EntityBase {
 
         this.body.rotation = 0;
 
-        this.updateSprites();
+        // this.updateSprites();
     }
 
     private updateSprites() {
@@ -35,7 +35,7 @@ class Car extends EntityBase {
                         this.addChild(this.game.add.sprite(
                             +15 - jj * 15,
                             -ii * 15,
-                            'map',
+                            'sprite',
                             37 * (18 - ii) - 4 - jj
                         ));
                     }
@@ -47,7 +47,7 @@ class Car extends EntityBase {
                         this.addChild(this.game.add.sprite(
                             +15 - jj * 15,
                             -ii * 15,
-                            'map',
+                            'sprite',
                             37 * (20 - ii) - 5 - jj
                         ));
                     }
@@ -58,7 +58,7 @@ class Car extends EntityBase {
                         this.addChild(this.game.add.sprite(
                             +15 - jj * 15,
                             -ii * 15,
-                            'map',
+                            'sprite',
                             37 * (18 - ii) - 1 - jj
                         ));
                     }
@@ -69,7 +69,7 @@ class Car extends EntityBase {
                         this.addChild(this.game.add.sprite(
                             +15 - jj * 15,
                             -ii * 15,
-                            'map',
+                            'sprite',
                             37 * (20 - ii) - 3 - jj
                         ));
                     }

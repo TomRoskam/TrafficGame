@@ -8,7 +8,7 @@ abstract class EntityBase extends Phaser.Sprite {
      */
     constructor(game: Phaser.Game, x: number, y: number) {
         super(game, x, y);
-        this.game.physics.p2.enable(this, true, false);
+        this.game.physics.p2.enable(this, false, false);
         this.game.add.existing(this);
     }
 }

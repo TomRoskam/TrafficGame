@@ -10,7 +10,7 @@ window.onload = function () {
 class EntityBase extends Phaser.Sprite {
     constructor(game, x, y) {
         super(game, x, y);
-        this.game.physics.p2.enable(this, true, false);
+        this.game.physics.p2.enable(this, false, false);
         this.game.add.existing(this);
     }
 }
@@ -47,7 +47,6 @@ class Car extends EntityBase {
         super.update();
         this.controller.update();
         this.body.rotation = 0;
-        this.updateSprites();
     }
     updateSprites() {
         const orientata = this.orientation;
@@ -56,28 +55,28 @@ class Car extends EntityBase {
             if (orientata === 0 || orientata === 4) {
                 for (let ii = 0; ii < 2; ii++) {
                     for (let jj = 0; jj < 3; jj++) {
-                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (18 - ii) - 4 - jj));
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'sprite', 37 * (18 - ii) - 4 - jj));
                     }
                 }
             }
             else if (orientata === 1) {
                 for (let ii = 0; ii < 2; ii++) {
                     for (let jj = 0; jj < 2; jj++) {
-                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (20 - ii) - 5 - jj));
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'sprite', 37 * (20 - ii) - 5 - jj));
                     }
                 }
             }
             else if (orientata === 2) {
                 for (let ii = 0; ii < 2; ii++) {
                     for (let jj = 0; jj < 3; jj++) {
-                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (18 - ii) - 1 - jj));
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'sprite', 37 * (18 - ii) - 1 - jj));
                     }
                 }
             }
             else if (orientata === 3) {
                 for (let ii = 0; ii < 2; ii++) {
                     for (let jj = 0; jj < 2; jj++) {
-                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'map', 37 * (20 - ii) - 3 - jj));
+                        this.addChild(this.game.add.sprite(+15 - jj * 15, -ii * 15, 'sprite', 37 * (20 - ii) - 3 - jj));
                     }
                 }
             }
@@ -100,31 +99,38 @@ class Boot extends Phaser.State {
     }
 }
 class Level extends Phaser.State {
+    constructor() {
+        super(...arguments);
+        this.speed = 10;
+    }
     preload() {
         this.game.load.spritesheet('sprite', './assets/images/CityPack/Spritesheet/map.png', 16, 16, -1, 0, 1);
-        this.game.load.image('map', './assets/map/map.jpg');
-        this.game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
+        this.game.load.image('map', './assets/map/map4MP.jpg');
         this.game.load.physics("physics", "./assets/js/physics.json");
     }
     create() {
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.game.add.sprite(0, 0, "map");
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.car = this.createCar();
-        this.mapScale = 0.0000737 * innerWidth;
-        this.speed = 10;
-        console.log("test");
-        this.map = this.game.add.image(0, 0, 'map');
-        this.map.scale.setTo(this.mapScale, this.mapScale);
-        console.log(this.speed);
-        this.game.camera.atLimit;
-        this.game.world.setBounds(0, 0, 1920, 1920);
+        this.car.body.damping = 1;
+        this.game.camera.follow(this.car, Phaser.Camera.FOLLOW_TOPDOWN, 0.1, 0.1);
+        this.game.world.setBounds(0, 0, 1920 - 450 - 3, 3000 - 275);
     }
     update() {
+        if (this.cursors.right.isDown)
+            this.car.body.x += this.speed;
+        if (this.cursors.left.isDown)
+            this.car.body.x -= this.speed;
+        if (this.cursors.down.isDown)
+            this.car.body.y += this.speed;
+        if (this.cursors.up.isDown)
+            this.car.body.y -= this.speed;
     }
     render() {
-        this.game.debug.cameraInfo(this.game.camera, 100, 100);
     }
     createCar() {
-        return new Car(this.game, this.game.width / 2, this.game.height / 2);
+        return new Car(this.game, 400, 890);
     }
 }
 //# sourceMappingURL=app.js.map

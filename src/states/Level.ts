@@ -1,13 +1,11 @@
 class Level extends Phaser.State {
 
-    private car:Car;
-    private mapScale: number;
-    private speed: number;
-    private map: any;
-     
+    private car: Car;
+    private cursors: Phaser.CursorKeys;
+
     preload() {
         this.game.load.spritesheet(
-            'sprite', 
+            'sprite',
             './assets/images/CityPack/Spritesheet/map.png',
             16,
             16,
@@ -15,9 +13,10 @@ class Level extends Phaser.State {
             0,
             1
         );
-        this.game.load.image('map', './assets/map/map.jpg');
-        this.game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
-        
+
+        this.game.load.image('map', './assets/map/map4MP.jpg');
+        // this.game.load.image('carGreen', './assets/entities/carGreenHorRight.png');
+
         this.game.load.physics(
             "physics",
             "./assets/js/physics.json"
@@ -25,31 +24,30 @@ class Level extends Phaser.State {
     }
 
     create() {
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+        this.game.add.sprite(0, 0, "map");
+
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.car = this.createCar();
+        this.car.body.damping = 1;
 
-        this.mapScale = 0.0000737 * innerWidth;
-        this.speed = 10;
-        console.log("test");
-        this.map = this.game.add.image(0, 0, 'map'); 
-        this.map.scale.setTo(this.mapScale,this.mapScale);
-        console.log(this.speed);
-
-        this.game.camera.atLimit
-       // this.game.camera.follow(this.car);
-        this.game.world.setBounds(0, 0, 1920, 1920);
+        this.game.camera.follow(this.car, Phaser.Camera.FOLLOW_TOPDOWN, 0.1, 0.1);
+        this.game.world.setBounds(0, 0, 1920 - 450 - 3, 3000 - 275);
 
     }
 
+    private speed = 10;
     update() {
-
+        if (this.cursors.right.isDown)  this.car.body.x += this.speed;
+        if (this.cursors.left.isDown)   this.car.body.x -= this.speed;
+        if (this.cursors.down.isDown)   this.car.body.y += this.speed;
+        if (this.cursors.up.isDown)     this.car.body.y -= this.speed;
     }
 
     render() {
-        this.game.debug.cameraInfo(this.game.camera, 100,100);
     }
-    
-    
+
+
     /**
      * Custom methods 
      * 
@@ -57,8 +55,7 @@ class Level extends Phaser.State {
      * 
      */
 
-
     private createCar() {
-        return new Car(this.game, this.game.width / 2, this.game.height / 2);
+        return new Car(this.game, 400, 890);
     }
 }
