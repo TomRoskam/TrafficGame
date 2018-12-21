@@ -35,7 +35,10 @@ public class PlayerController : MonoBehaviour {
 		this.wheels[2].motorTorque = maxTorque * Input.GetAxis("Vertical");
 		this.wheels[3].motorTorque = maxTorque * Input.GetAxis("Vertical");
 
-		this.wheels[0].steerAngle = steeringMod * Input.GetAxis("Horizontal");
+        this.wheels[2].brakeTorque = maxTorque * Input.GetAxis("Jump") * 30;
+        this.wheels[3].brakeTorque = maxTorque * Input.GetAxis("Jump") * 30;
+
+        this.wheels[0].steerAngle = steeringMod * Input.GetAxis("Horizontal");
 		this.wheels[1].steerAngle = steeringMod * Input.GetAxis("Horizontal");
 	}
 }

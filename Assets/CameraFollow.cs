@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour
         //Make it move to the appropriate position in a smooth manner.
         transform.position = Vector3.Lerp(
             transform.position,
-            targetTransform.position - targetTransform.forward * 2f + new Vector3(0,1f,0),
+            targetTransform.position - targetTransform.forward * 4f + new Vector3(0,2f,0),
             followSpeed
         );
 
