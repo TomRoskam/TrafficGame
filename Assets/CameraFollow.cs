@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCar : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
 
     [SerializeField]
-    private Transform carTransform;
+    private Transform targetTransform;
 
     [SerializeField]
     private float followSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //Make it move to the appropriate position in a smooth manner.
         transform.position = Vector3.Lerp(
             transform.position,
-            carTransform.position - carTransform.forward * 0.5f + new Vector3(0,0.25f   ,0),
-            followSpeed);
-        transform.LookAt(carTransform,carTransform.up);
+            targetTransform.position - targetTransform.forward * 2f + new Vector3(0,1f,0),
+            followSpeed
+        );
+
+        //Make it look at the target.
+        transform.LookAt(targetTransform,targetTransform.up);
     }
 }
