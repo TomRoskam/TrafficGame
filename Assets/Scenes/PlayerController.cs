@@ -10,12 +10,16 @@ public class PlayerController : MonoBehaviour {
 	//Base mobility values
 	[SerializeField]
 	private float maxTorque = 20;
+	[SerializeField]
 	private float steeringMod = 10;
+    private Vector3 startPosition;
+	private Quaternion startRotation;
 
 
 	// Use this for initialization
 	void Start () {
-		
+        this.startPosition = this.transform.position;
+		this.startRotation = this.transform.rotation;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +27,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		if(Input.GetKeyDown(KeyCode.U)) {
+			this.transform.position = this.startPosition;
+			this.transform.rotation = this.startRotation;
+		} 
+
 		this.wheels[2].motorTorque = maxTorque * Input.GetAxis("Vertical");
 		this.wheels[3].motorTorque = maxTorque * Input.GetAxis("Vertical");
 
