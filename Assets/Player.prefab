@@ -790,7 +790,7 @@ MonoBehaviour:
   - {fileID: 7090513849389116913}
   maxTorque: 400
   steeringMod: 10
-  testYOffset: 0.04
+  testYOffset: -0.02
 --- !u!1 &7885214081426658607
 GameObject:
   m_ObjectHideFlags: 0
