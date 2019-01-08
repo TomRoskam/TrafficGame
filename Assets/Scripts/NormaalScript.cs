@@ -10,7 +10,7 @@ public class NormaalScript : MonoBehaviour
 
     public void NormaalButtonClicked()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
         NormaalClicked = true;
     }
 

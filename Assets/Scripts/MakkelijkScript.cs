@@ -10,7 +10,7 @@ public class MakkelijkScript : MonoBehaviour
 
     public void MakkelijkButtonClicked()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
         MakkelijkClicked = true;
     }
 

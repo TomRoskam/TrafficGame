@@ -63,7 +63,7 @@ public class Score : MonoBehaviour
                 scoreInt = scoreInt + MoeilijkScript.MoeilijkPunten;
             }
 
-            CHECKER = false;
+            CHECKER2 = false;
             Debug.Log("SCORE" + scoreInt);
             scoreText.text = scoreInt.ToString();
             Debug.Log(scoreInt.ToString());
@@ -84,7 +84,7 @@ public class Score : MonoBehaviour
                 scoreInt = scoreInt + MoeilijkScript.MoeilijkPunten;
             }
 
-            CHECKER = false;
+            CHECKER3 = false;
             Debug.Log("SCORE" + scoreInt);
             scoreText.text = scoreInt.ToString();
             Debug.Log(scoreInt.ToString());
@@ -105,7 +105,7 @@ public class Score : MonoBehaviour
                 scoreInt = scoreInt + MoeilijkScript.MoeilijkPunten;
             }
 
-            CHECKER = false;
+            CHECKER4 = false;
             Debug.Log("SCORE" + scoreInt);
             scoreText.text = scoreInt.ToString();
             Debug.Log(scoreInt.ToString());

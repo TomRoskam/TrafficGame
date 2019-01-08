@@ -10,7 +10,7 @@ public class MoeilijkScript : MonoBehaviour
 
     public void MoeilijkButtonClicked()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(1);
         MoeilijkClicked = true;
     }
 
