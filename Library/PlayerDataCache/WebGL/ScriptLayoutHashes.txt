@@ -118,9 +118,9 @@ f1a2e4da56cf81138c1d96510db64097 Assembly-CSharp.dll:.PlayerController
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 94017dcc9f00fe671ea7dc427b4da011 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
-e7fc5f7dfd0c47fdf006b86e0272800a Assembly-CSharp.dll:.Score
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.NormaalScript
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MoeilijkScript
+ee3bc59f3e4036db734bca5c47c3195b Assembly-CSharp.dll:.Score
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.NormalScript
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.HardScript
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
@@ -167,4 +167,8 @@ c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 ac2aa56acc0af312bba64ad5e28f2275 Assembly-CSharp.dll:.Flip
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MakkelijkScript
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.EasyScript
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.SuperDifficulties
+8e33061ab5f87d47de37b4ff3e659c4d Assembly-CSharp.dll:.BackButton
+42ccd0b8370678891adef1f4d40518b7 Assembly-CSharp.dll:.MutePlayAudio
+583d5b12ec091cce3eceb89045620f71 Assembly-CSharp.dll:.Position

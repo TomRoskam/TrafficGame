@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-
     public Transform jeep;
     public Text scoreText;
     public float scoreInt;
@@ -14,16 +13,17 @@ public class Score : MonoBehaviour
     bool CHECKER3 = true;
     bool CHECKER4 = true;
 
+    [SerializeField]
+    private Transform ScoreButtonTransform;
     private void Start()
     {
+        ScoreButtonTransform.position = ScoreButtonTransform.InverseTransformPoint(ScoreButtonTransform.position + new Vector3(Screen.width - 125, 25, 50));
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         CheckPoint();
-        //Debug.Log("Z" + jeep.position.z);
-       // Debug.Log("X" + jeep.position.x);
     }
 
     public void CheckPoint()
@@ -55,21 +55,8 @@ public class Score : MonoBehaviour
 
     public void PointAwarding()
     {
-        if (MakkelijkScript.MakkelijkClicked == true)
-        {
-            scoreInt = scoreInt + MakkelijkScript.MakkelijkPunten;
-        }
-        else if (NormaalScript.NormaalClicked == true)
-        {
-            scoreInt = scoreInt + NormaalScript.NormaalPunten;
-        }
-        else if (MoeilijkScript.MoeilijkClicked == true)
-        {
-            scoreInt = scoreInt + MoeilijkScript.MoeilijkPunten;
-        }
-
-        Debug.Log("SCORE" + scoreInt);
+        scoreInt += SuperDifficulties.AmountPoints;
+        
         scoreText.text = scoreInt.ToString();
-        Debug.Log(scoreInt.ToString());
     }
 }
